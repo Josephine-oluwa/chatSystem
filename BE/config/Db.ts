@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 const URL: string = "mongodb+srv://josephine:josephine@cluster0.v1d2dga.mongodb.net/chatBE?retryWrites=true&w=majority";

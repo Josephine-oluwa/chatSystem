@@ -10,4 +10,4 @@ Router.route("/find-all-auth").get(findAllAuth)
 Router.route("/un-friend/:authID/:friendID").patch(unFriend)
 Router.route("/make-friend/:authID/:friendID").patch(makeFriends)
 
-export default Router
+export default Router;

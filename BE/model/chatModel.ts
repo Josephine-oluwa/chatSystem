@@ -1,4 +1,4 @@
-import {Document, Schema, model, } from "mongoose"
+import {Document, Schema, model } from "mongoose"
 
 interface iChat {
     member: Array<string>
@@ -7,7 +7,6 @@ interface iChat {
 interface iChatData extends iChat, Document {}
 
 const chatModel = new Schema (
-
     {
         member : {
             type: Array<String>

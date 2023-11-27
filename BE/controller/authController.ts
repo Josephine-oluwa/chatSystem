@@ -27,7 +27,7 @@ export const findOneAuth =async (req: Request, res: Response )=> {
     try {
              const {authID} = req.params
 
-            const auth = await authModel.findById(authID)
+        const auth = await authModel.findById(authID)
         return res.status(200).json({
             message: "successfully found one auth",
             data: auth
@@ -45,6 +45,8 @@ export const findAllAuth =async (req: Request, res: Response )=> {
              
 
         const user = await authModel.find()
+
+
         return res.status(201).json({
             message: "successfully found all auth",
             data: user
