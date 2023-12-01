@@ -38,6 +38,21 @@ export const findOneAuth =async (req: Request, res: Response )=> {
         })
     }
 }
+export const signInAuth =async (req: Request, res: Response )=> {
+    try {
+             const {email, password} = req.params
+
+        const auth = await authModel.findOne({email})
+        return res.status(200).json({
+            message: "successfully signed up",
+            data: auth
+        })
+    } catch (error: any) {
+        return res.status(404).json({
+            message: "error while creating auth"
+        })
+    }
+}
 
 
 export const findAllAuth =async (req: Request, res: Response )=> {
