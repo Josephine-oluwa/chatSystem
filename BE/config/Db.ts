@@ -9,6 +9,6 @@ export const mainConnection = async () => {
       console.log("DB connected...🚀🚀🚀");
     });
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
 };

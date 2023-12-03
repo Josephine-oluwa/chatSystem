@@ -57,10 +57,8 @@ export const signInAuth =async (req: Request, res: Response )=> {
 
 export const findAllAuth =async (req: Request, res: Response )=> {
     try {
-             
 
         const user = await authModel.find()
-
 
         return res.status(201).json({
             message: "successfully found all auth",

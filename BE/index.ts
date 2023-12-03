@@ -6,6 +6,7 @@ import {Server, Socket} from "socket.io"
 import cors from "cors"
 import { DefaultEventsMap } from "socket.io/dist/typed-events"
 import amqplib from "amqplib"
+import notifyModel from "./model/notifyModel"
 
 
 
@@ -39,13 +40,35 @@ io.on ("connection", async(socket: Socket<DefaultEventsMap, DefaultEventsMap, De
     const connect = await amqplib.connect(URL)
     const channel = await connect.createChannel()
     await channel.assertQueue("send");
-    await channel.consume("send", async(res: any) => {
-        newData.push(await JSON.parse(res?.content.toString()));
+    await channel.consume("send", async (res: any) => {
+        await channel.assertQueue("sendChat");
 
-        socket.emit("set07i", await newData);
+        await channel.consume("sendChat", async (res: any) => {
+            newData.push(await JSON.parse(res?.content.toString()));
 
-        await channel.ack(res)
+            await notifyModel.create({
+                notice: {
+                    data: await JSON.parse(res?.content.toString()),
+                    message: "coming from chat"
+                }
+            })
+            console.log(newData);
+            socket.emit("set07i", await newData);
+            await channel.ack(res)
+
+        })
     })
+
+
+
+
+    // await channel.consume("send", async(res: any) => {
+    //     newData.push(await JSON.parse(res?.content.toString()));
+
+    //     socket.emit("set07i", await newData);
+
+    //     await channel.ack(res)
+    // })
 });
 
 
